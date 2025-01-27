@@ -9,7 +9,11 @@
     <body>
         <h1>All categories</h1>
         <!-- there should be a bunch of buttons, each representing a category page to view -->
-        <a href="/" class="button">test</a>
+        <% categories.forEach((category) => { %>
+            <a href="/" class="button">
+                <%= category.name %>    
+            </a>
+        <% }); %>
 
         <form method="POST" action="/categories">
             <label for="name">Name</label>

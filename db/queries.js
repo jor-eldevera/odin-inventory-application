@@ -7,6 +7,13 @@ async function createNewCategory(name, description) {
             ($1, $2);`, [name, description]);
 }
 
+async function getAllCategories() {
+    const { rows } = await pool.query("SELECT * FROM categories;");
+    
+    return rows;
+}
+
 module.exports = {
-    createNewCategory
+    createNewCategory,
+    getAllCategories
 }
