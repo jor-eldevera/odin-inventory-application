@@ -10,5 +10,13 @@
         <h1>All categories</h1>
         <!-- there should be a bunch of buttons, each representing a category page to view -->
         <a href="/" class="button">test</a>
+
+        <form method="POST" action="/categories">
+            <label for="name">Name</label>
+            <input type="text" name="name">
+            <label for="description">Description</label>
+            <textarea name="description" rows="5" cols="30"></textarea>
+            <input type="submit" value="submit">
+        </form>
     </body>
 </html>
