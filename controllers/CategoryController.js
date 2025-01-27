@@ -15,7 +15,17 @@ async function createNewCategory(req, res) {
     res.redirect("/categories");
 }
 
+async function getSingleCategory(req, res) {
+    let id = req.params.id;
+    let category = await db.getSingleCategory(id);
+    console.log(category);
+    
+
+    res.render("singleCategory", { category: category });
+}
+
 module.exports = {
     getAllCategoriesPage,
-    createNewCategory
+    createNewCategory,
+    getSingleCategory
 }
