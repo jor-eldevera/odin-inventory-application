@@ -7,5 +7,6 @@ const controller = require("../controllers/CategoryController");
 categoryRouter.get("/", controller.getAllCategoriesPage);
 categoryRouter.post("/", controller.createNewCategory);
 categoryRouter.get("/:id", controller.getSingleCategory);
+categoryRouter.put("/:id", controller.updateCategory);
 
 module.exports = categoryRouter;

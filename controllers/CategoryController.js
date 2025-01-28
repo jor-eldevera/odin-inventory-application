@@ -24,8 +24,16 @@ async function getSingleCategory(req, res) {
     res.render("singleCategory", { category: category });
 }
 
+async function updateCategory(req, res) {
+    let { id, name, description } = req.body;
+    let updatedCategory = await db.updateCategory(id, name, description);
+
+    res.render("singleCategory", { category: updatedCategory });
+}
+
 module.exports = {
     getAllCategoriesPage,
     createNewCategory,
-    getSingleCategory
+    getSingleCategory,
+    updateCategory
 }

@@ -5,9 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Seattle Soccer <%= category.name %> </title>
   <link rel="stylesheet" type="text/css" href="/styles.css">
+  <script defer src="/test.js"></script>
 </head>
     <body>
-        <h1><%= category.name %></h1>
-        <h3><%= category.description %></h3>
+      <h1 id="category-name" contenteditable="true"><%= category.name %></h1>
+      <h3 id="category-description" contenteditable="true"><%= category.description %></h3>
+      <button id="save-button" class="button">Save</button>
     </body>
+    
+    <script>
+      window.id = <%= category.id %>;
+    </script>
 </html>

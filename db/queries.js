@@ -19,8 +19,22 @@ async function getSingleCategory(id) {
     return rows[0];
 }
 
+async function updateCategory(id, name, description) {
+    console.log("id: " + id + "\nname: " + name + "\ndescription: " + description);
+    
+    const { rows } = await pool.query(`
+        UPDATE categories
+        SET
+            name = $1,
+            description = $2
+        WHERE id = $3
+        RETURNING *;`, [name, description, id]);
+    return rows[0];
+}
+
 module.exports = {
     createNewCategory,
     getAllCategories,
-    getSingleCategory
+    getSingleCategory,
+    updateCategory
 }
