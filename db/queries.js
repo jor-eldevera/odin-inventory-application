@@ -20,8 +20,6 @@ async function getSingleCategory(id) {
 }
 
 async function updateCategory(id, name, description) {
-    console.log("id: " + id + "\nname: " + name + "\ndescription: " + description);
-    
     const { rows } = await pool.query(`
         UPDATE categories
         SET
