@@ -10,7 +10,7 @@
         <h1>All categories</h1>
         <!-- there should be a bunch of buttons, each representing a category page to view -->
         <% categories.forEach((category) => { %>
-            <a href="/" class="button">
+            <a href="/categories/<%= category.id %>" class="button">
                 <%= category.name %>    
             </a>
         <% }); %>
