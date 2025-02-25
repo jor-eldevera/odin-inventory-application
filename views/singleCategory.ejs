@@ -6,11 +6,13 @@
   <title>Seattle Soccer <%= category.name %> </title>
   <link rel="stylesheet" type="text/css" href="/styles.css">
   <script defer src="/scripts/categorySaveButton.js"></script>
+  <script defer src="/scripts/categoryDeleteButton.js"></script>
 </head>
     <body>
       <h1 id="category-name" contenteditable="true"><%= category.name %></h1>
       <h3 id="category-description" contenteditable="true"><%= category.description %></h3>
       <button id="save-button" class="button">Save</button>
+      <button id="delete-button" class="button">Delete</button>
     </body>
     
     <script>
