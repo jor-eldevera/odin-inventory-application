@@ -8,13 +8,18 @@
 </head>
     <body>
         <h1>All categories</h1>
-        <!-- there should be a bunch of buttons, each representing a category page to view -->
-        <% categories.forEach((category) => { %>
-            <a href="/categories/<%= category.id %>" class="button">
-                <%= category.name %>    
-            </a>
-        <% }); %>
+        <% if (categories.length === 0) { %>
+            <a>No categories found</a>
+        <% } else { %>
+            <!-- there should be a bunch of buttons, each representing a category page to view -->
+            <% categories.forEach((category) => { %>
+                <a href="/categories/<%= category.id %>" class="button">
+                    <%= category.name %>    
+                </a>
+            <% }); %>
+        <% } %>
 
+        
         <form method="POST" action="/categories">
             <label for="name">Name</label>
             <input type="text" name="name">
