@@ -8,14 +8,47 @@
   <script defer src="/scripts/categorySaveButton.js"></script>
   <script defer src="/scripts/categoryDeleteButton.js"></script>
 </head>
-    <body>
-      <h1 id="category-name" contenteditable="true"><%= category.name %></h1>
-      <h3 id="category-description" contenteditable="true"><%= category.description %></h3>
-      <button id="save-button" class="button">Save</button>
-      <button id="delete-button" class="button">Delete</button>
-    </body>
-    
-    <script>
-      window.id = <%= category.id %>;
-    </script>
+  <body>
+    <h1 id="category-name" contenteditable="true"><%= category.name %></h1>
+    <h3 id="category-description" contenteditable="true"><%= category.description %></h3>
+    <button id="save-button" class="button">Save</button>
+    <button id="delete-button" class="button">Delete</button>
+    <button id="new-item-button" class="button">New Item</button>
+
+    <form id="new-item-form" method="POST" action="/categories/<%= category.id %>" style="display: none;">
+      <input type="hidden" name="category_id" value="<%= category.id %>">
+      <label for="name">Item Name</label>
+      <input type="text" name="name">
+      <label for="description">Description</label>
+      <textarea name="description" rows="5" cols="30"></textarea>
+      <label for="price">Price</label>
+      <input type="number" name="price">
+      <label for="quantity">Quantity</label>
+      <input type="number" name="quantity">
+      <input type="submit" value="submit">
+    </form>
+
+    <div id="items-container">
+      <h2>Items</h2>
+      <ul id="items-list">
+        <% items.forEach((item) => { %>
+          <li><%= item.name %></li>
+        <% }); %>
+      </ul>
+    </div>
+  </body>
+      
+  <script>
+    window.id = <%= category.id %>;
+
+    // Add form toggle functionality
+    const newItemButton = document.getElementById('new-item-button');
+    const newItemForm = document.getElementById('new-item-form');
+
+    newItemButton.addEventListener('click', () => {
+      const isFormVisible = newItemForm.style.display !== 'none';
+      newItemForm.style.display = isFormVisible ? 'none' : 'block';
+      newItemButton.textContent = isFormVisible ? 'New Item' : 'Cancel';
+    });
+  </script>
 </html>

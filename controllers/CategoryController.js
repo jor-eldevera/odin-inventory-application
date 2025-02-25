@@ -19,12 +19,15 @@ async function getSingleCategory(req, res) {
     
     try {
         let category = await db.getSingleCategory(id);
-        
+        let items = await db.getItemsByCategory(id);
         if (category === undefined) {
             return res.status(404).json({ message: 'Category not found' });
         }
-    
-        return res.render("singleCategory", { category: category });
+        
+        return res.render("singleCategory", { 
+            category: category,
+            items: items
+        });
     } catch (err) {
         console.error("getSingleCategory: " + err.message);
         return res.status(500).json({ message: 'Internal Server Error' });
