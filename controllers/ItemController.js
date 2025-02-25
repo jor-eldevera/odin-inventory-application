@@ -27,7 +27,14 @@ async function getSingleItem(req, res) {
     res.render("singleItem", { item: item });
 }
 
+async function deleteItem(req, res) {
+    let { id } = req.params;
+    await db.deleteItem(id);
+    res.status(200).json({ message: 'Item deleted successfully' });
+}
+
 module.exports = {
     createNewItem,
-    getSingleItem
+    getSingleItem,
+    deleteItem
 }

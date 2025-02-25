@@ -63,6 +63,14 @@ async function getSingleItem(id) {
     return rows[0];
 }
 
+async function deleteItem(id) {
+    const { rowCount } = await pool.query(`
+        DELETE FROM items
+        WHERE id = $1;`, [id]);
+
+    return rowCount;
+}
+
 module.exports = {
     createNewCategory,
     getAllCategories,
@@ -71,5 +79,6 @@ module.exports = {
     deleteCategory,
     getItemsByCategory,
     createNewItem,
-    getSingleItem
+    getSingleItem,
+    deleteItem
 }

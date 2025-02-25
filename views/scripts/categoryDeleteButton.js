@@ -7,8 +7,6 @@ document.getElementById("delete-button").addEventListener("click", async (e) => 
     }
 
     try {
-        console.log(id);
-        
         const response = await fetch(`/categories/${id}`, {
             method: "DELETE",
             headers: {
