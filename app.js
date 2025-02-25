@@ -7,6 +7,7 @@ const PORT = 8080;
 // Routers
 const homeRouter = require("./routes/HomeRouter");
 const categoryRouter = require("./routes/CategoryRouter");
+const itemRouter = require("./routes/ItemRouter");
 
 // hooking up ejs
 const path = require("node:path");
@@ -21,5 +22,6 @@ app.use(express.urlencoded({ extended: true }));
 // hooking up routers
 app.use("/", homeRouter);
 app.use("/categories", categoryRouter);
+app.use("/items", itemRouter);
 
 app.listen(PORT);

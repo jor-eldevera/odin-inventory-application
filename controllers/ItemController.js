@@ -21,6 +21,13 @@ async function createNewItem(req, res) {
     }
 }
 
+async function getSingleItem(req, res) {
+    let { id } = req.params;
+    let item = await db.getSingleItem(id);
+    res.render("singleItem", { item: item });
+}
+
 module.exports = {
-    createNewItem
+    createNewItem,
+    getSingleItem
 }

@@ -55,6 +55,14 @@ async function createNewItem(name, description, price, quantity, category_id) {
     return rows[0];
 }
 
+async function getSingleItem(id) {
+    const { rows } = await pool.query(`
+        SELECT * FROM items
+        WHERE id = $1;`, [id]);
+
+    return rows[0];
+}
+
 module.exports = {
     createNewCategory,
     getAllCategories,
@@ -62,5 +70,6 @@ module.exports = {
     updateCategory,
     deleteCategory,
     getItemsByCategory,
-    createNewItem
+    createNewItem,
+    getSingleItem
 }

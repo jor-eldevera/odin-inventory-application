@@ -4,6 +4,6 @@ const itemRouter = Router();
 
 const controller = require("../controllers/ItemController");
 
-itemRouter.post("/", controller.createNewItem);
+itemRouter.get("/:id", controller.getSingleItem);
 
 module.exports = itemRouter;
