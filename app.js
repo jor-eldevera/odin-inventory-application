@@ -15,6 +15,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/views"));
 
 // middleware to parse new message form data
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // hooking up routers

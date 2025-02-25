@@ -16,9 +16,23 @@ async function createNewCategory(req, res) {
 
 async function getSingleCategory(req, res) {
     let id = req.params.id;
-    let category = await db.getSingleCategory(id);
     
-    res.render("singleCategory", { category: category });
+    try {
+        let category = await db.getSingleCategory(id);
+        
+        if (category === undefined) {
+            res.status(404).json({ message: 'Category not found' });
+            res.redirect("/categories");
+        }
+    
+        // res.status(200).json({ message: 'Category found successfully' });
+        res.render("singleCategory", { category: category });
+    } catch (err) {
+        console.error("getSingleCategory: " + err.message);
+        res.status(500).json({ message: 'Internal Server Error' });
+        res.redirect("/categories");
+    }
+    
 }
 
 async function updateCategory(req, res) {
@@ -28,9 +42,28 @@ async function updateCategory(req, res) {
     res.render("singleCategory", { category: updatedCategory });
 }
 
+async function deleteCategory(req, res) {
+    let { id } = req.params;
+    try {
+        const rowCount = await db.deleteCategory(id);
+    
+        if (rowCount === 0) {
+            return res.status(404).json({ message: 'Category not found' });
+        }
+    
+        // For API requests, send JSON response
+        return res.status(200).json({ message: 'Category deleted successfully' });
+
+    } catch (err) {
+        console.error("deleteCategory: " + err.message);
+        return res.status(500).json({ message: 'Internal Server Error' });
+    }
+}
+
 module.exports = {
     getAllCategoriesPage,
     createNewCategory,
     getSingleCategory,
-    updateCategory
+    updateCategory,
+    deleteCategory
 }

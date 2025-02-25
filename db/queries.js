@@ -30,9 +30,18 @@ async function updateCategory(id, name, description) {
     return rows[0];
 }
 
+async function deleteCategory(id) {
+    const { rowCount } = await pool.query(`
+        DELETE FROM categories
+        WHERE id = $1`, [id]);
+
+    return rowCount;
+}
+
 module.exports = {
     createNewCategory,
     getAllCategories,
     getSingleCategory,
-    updateCategory
+    updateCategory,
+    deleteCategory
 }
