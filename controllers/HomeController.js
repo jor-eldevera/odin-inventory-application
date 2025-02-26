@@ -1,7 +1,10 @@
 const db = require("../db/queries");
 
 async function getHomepage(req, res) {
-    res.render("index");
+    // get statistics
+    const statistics = await db.getStatistics();
+
+    res.render("index", { statistics: statistics });
 }
 
 module.exports = {

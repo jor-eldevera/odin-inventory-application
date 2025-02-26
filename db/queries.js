@@ -52,6 +52,11 @@ async function createNewItem(name, description, price, quantity, category_id) {
         VALUES ($1, $2, $3, $4, $5)
         RETURNING *;`, [name, description, price, quantity, category_id]);
 
+    await pool.query(`
+        UPDATE categories
+        SET quantity = quantity + $1
+        WHERE id = $2;`, [quantity, category_id]);
+
     return rows[0];
 }
 
@@ -68,7 +73,48 @@ async function deleteItem(id) {
         DELETE FROM items
         WHERE id = $1;`, [id]);
 
+    await pool.query(`
+        UPDATE categories
+        SET quantity = quantity - $1
+        WHERE id = $2;`, [quantity, category_id]);
+
     return rowCount;
+}
+
+async function getAllItems() {
+    const { rows } = await pool.query("SELECT * FROM items;");
+
+    return rows;
+}
+
+async function getRecentlyAddedItems() {
+    const { rows } = await pool.query("SELECT * FROM items ORDER BY created_at DESC LIMIT 5;");
+
+    return rows;
+}
+
+async function getMostStockedCategory() {
+    const { rows } = await pool.query("SELECT * FROM categories ORDER BY quantity DESC LIMIT 1;");
+
+    return rows[0];
+}
+
+async function getStatistics() {
+    // get number of categories
+    const categories = await getAllCategories();
+    const numCategories = categories.length;
+
+    // get number of items
+    const items = await getAllItems();
+    const numItems = items.length;
+    
+    // get recently added items
+    const recentlyAddedItems = await getRecentlyAddedItems();
+    
+    // get most stocked category
+    const mostStockedCategory = await getMostStockedCategory();
+
+    return { numCategories, numItems, recentlyAddedItems, mostStockedCategory };
 }
 
 module.exports = {
@@ -80,5 +126,6 @@ module.exports = {
     getItemsByCategory,
     createNewItem,
     getSingleItem,
-    deleteItem
+    deleteItem,
+    getStatistics
 }

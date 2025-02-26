@@ -1,9 +1,26 @@
 <html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Seattle Soccer Inventory System</title>
+        <link rel="stylesheet" type="text/css" href="/styles.css">
+      </head>
     <body>
         <h1>Welcome to the Seattle Soccer Inventory System!</h1>
         <a href="/categories" class="button">
             View All Categories
         </a>
+
         <!-- display store statistics: num categories, num items, num stock, most stocked items -->
+        <h3>Store Statistics</h3>
+        <p>Number of categories: <%= statistics.numCategories %></p>
+        <p>Number of items: <%= statistics.numItems %></p>
+        <p>Recently added items:</p>
+        <ul>
+            <% statistics.recentlyAddedItems.forEach(item => { %>
+                <li><%= item.name %></li>
+            <% }); %>
+        </ul>
+        <p>Most stocked category: <%= statistics.mostStockedCategory.name %></p>
     </body>
 </html>
